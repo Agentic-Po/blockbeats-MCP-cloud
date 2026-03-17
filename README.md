@@ -1,27 +1,27 @@
 # blockbeats-mcp
 
-BlockBeats Pro API MCP Server，为 AI 助手提供加密货币快讯、文章、搜索和链上市场数据查询能力。
+BlockBeats Pro API MCP Server — provides AI assistants with crypto news, articles, search, and on-chain market data query capabilities.
 
-## 安装
+## Installation
 
 ```bash
 npm install -g blockbeats-mcp
 ```
 
-## 前置条件
+## Prerequisites
 
 - Node.js 18+
-- BlockBeats API Key（[申请地址](https://www.theblockbeats.info/)）
+- BlockBeats API Key ([Apply here](https://www.theblockbeats.info/))
 
 ---
 
-## 接入方式
+## Integration
 
 ### Claude Desktop
 
-编辑配置文件：
-- **Windows**：`%APPDATA%\Claude\claude_desktop_config.json`
-- **Mac**：`~/Library/Application Support/Claude/claude_desktop_config.json`
+Edit the config file:
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+- **Mac**: `~/Library/Application Support/Claude/claude_desktop_config.json`
 
 ```json
 {
@@ -30,20 +30,20 @@ npm install -g blockbeats-mcp
       "command": "npx",
       "args": ["-y", "blockbeats-mcp"],
       "env": {
-        "BLOCKBEATS_API_KEY": "你的API密钥"
+        "BLOCKBEATS_API_KEY": "your_api_key"
       }
     }
   }
 }
 ```
 
-重启 Claude Desktop 后即可使用。
+Restart Claude Desktop to apply.
 
 ---
 
 ### OpenClaw
 
-在 OpenClaw 的 MCP 配置中添加：
+Add to OpenClaw's MCP config:
 
 ```json
 {
@@ -52,7 +52,7 @@ npm install -g blockbeats-mcp
       "command": "npx",
       "args": ["-y", "blockbeats-mcp"],
       "env": {
-        "BLOCKBEATS_API_KEY": "你的API密钥"
+        "BLOCKBEATS_API_KEY": "your_api_key"
       }
     }
   }
@@ -63,7 +63,7 @@ npm install -g blockbeats-mcp
 
 ### Cursor
 
-打开 Cursor → Settings → MCP，添加：
+Open Cursor → Settings → MCP, add:
 
 ```json
 {
@@ -72,7 +72,7 @@ npm install -g blockbeats-mcp
       "command": "npx",
       "args": ["-y", "blockbeats-mcp"],
       "env": {
-        "BLOCKBEATS_API_KEY": "你的API密钥"
+        "BLOCKBEATS_API_KEY": "your_api_key"
       }
     }
   }
@@ -83,7 +83,7 @@ npm install -g blockbeats-mcp
 
 ### Windsurf
 
-编辑 `~/.codeium/windsurf/mcp_config.json`：
+Edit `~/.codeium/windsurf/mcp_config.json`:
 
 ```json
 {
@@ -92,7 +92,7 @@ npm install -g blockbeats-mcp
       "command": "npx",
       "args": ["-y", "blockbeats-mcp"],
       "env": {
-        "BLOCKBEATS_API_KEY": "你的API密钥"
+        "BLOCKBEATS_API_KEY": "your_api_key"
       }
     }
   }
@@ -101,9 +101,9 @@ npm install -g blockbeats-mcp
 
 ---
 
-### Cline（VS Code 插件）
+### Cline (VS Code Extension)
 
-打开 VS Code → Cline 插件面板 → MCP Servers → 添加：
+Open VS Code → Cline panel → MCP Servers → Add:
 
 ```json
 {
@@ -111,7 +111,7 @@ npm install -g blockbeats-mcp
     "command": "npx",
     "args": ["-y", "blockbeats-mcp"],
     "env": {
-      "BLOCKBEATS_API_KEY": "你的API密钥"
+      "BLOCKBEATS_API_KEY": "your_api_key"
     }
   }
 }
@@ -119,9 +119,9 @@ npm install -g blockbeats-mcp
 
 ---
 
-### 代码调用（Node.js / TypeScript）
+### Programmatic Usage (Node.js / TypeScript)
 
-通过 MCP Client SDK 直接调用：
+Call directly via the MCP Client SDK:
 
 ```typescript
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
@@ -130,7 +130,7 @@ import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js"
 const transport = new StdioClientTransport({
   command: "npx",
   args: ["-y", "blockbeats-mcp"],
-  env: { BLOCKBEATS_API_KEY: "你的API密钥" },
+  env: { BLOCKBEATS_API_KEY: "your_api_key" },
 });
 
 const client = new Client({ name: "my-app", version: "1.0.0" }, { capabilities: {} });
@@ -145,39 +145,39 @@ console.log(result);
 
 ---
 
-## 支持的工具
+## Available Tools
 
-| 工具 | 说明 |
-|------|------|
-| `get_newsflash` | 快讯列表（全部/重要/原创/首发/链上/融资/预测/AI）|
-| `get_articles` | 文章列表（全部/重要/原创）|
-| `search_news` | 关键词搜索 |
-| `get_btc_etf_flow` | BTC ETF 净流入 |
-| `get_daily_onchain_tx` | 每日链上交易量 |
-| `get_ibit_fbtc_flow` | IBIT/FBTC 净流入 |
-| `get_stablecoin_marketcap` | 稳定币市值 |
-| `get_compliant_exchange_total` | 合规交易所总资产 |
-| `get_us_treasury_yield` | 美债收益率 |
-| `get_dxy_index` | 美元指数（DXY）|
-| `get_m2_supply` | 全球 M2 供应量 |
-| `get_bitfinex_long_positions` | Bitfinex 多头持仓 |
-| `get_contract_oi_data` | 合约平台 OI 数据 |
-| `get_sentiment_indicator` | 抄底逃顶情绪指标 |
-| `get_top10_netflow` | 链上净流入前十代币 |
-| `get_exchange_rankings` | 合约交易所排名 |
+| Tool | Description |
+|------|-------------|
+| `get_newsflash` | News flash list (all / important / original / first-report / on-chain / funding / prediction / AI) |
+| `get_articles` | Article list (all / important / original) |
+| `search_news` | Keyword search |
+| `get_btc_etf_flow` | BTC ETF net inflow |
+| `get_daily_onchain_tx` | Daily on-chain transaction volume |
+| `get_ibit_fbtc_flow` | IBIT / FBTC net inflow |
+| `get_stablecoin_marketcap` | Stablecoin market cap |
+| `get_compliant_exchange_total` | Total assets of compliant exchanges |
+| `get_us_treasury_yield` | US Treasury yield |
+| `get_dxy_index` | US Dollar Index (DXY) |
+| `get_m2_supply` | Global M2 money supply |
+| `get_bitfinex_long_positions` | Bitfinex long positions |
+| `get_contract_oi_data` | Contract platform open interest data |
+| `get_sentiment_indicator` | Buy/sell sentiment indicator |
+| `get_top10_netflow` | Top 10 tokens by on-chain net inflow |
+| `get_exchange_rankings` | Derivatives exchange rankings |
 
 ---
 
-## 使用示例
+## Usage Examples
 
-配置完成后，直接对话：
+Once configured, chat naturally:
 
 ```
-今天 BTC ETF 流入多少？
-最新的重要快讯有哪些？
-搜索 Solana 相关新闻
-现在宏观环境适合入场吗？
-链上资金在流向哪里？
+How much did BTC ETF inflow today?
+What are the latest important news flashes?
+Search for Solana-related news
+Is the current macro environment good for entering the market?
+Where is on-chain capital flowing?
 ```
 
 ## License
