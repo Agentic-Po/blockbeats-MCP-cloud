@@ -1,6 +1,6 @@
 # blockbeats-mcp
 
-BlockBeats Pro API MCP Server — provides AI assistants with crypto news, articles, search, and on-chain market data query capabilities.
+BlockBeats MCP Server: A dedicated crypto data gateway for AI assistants. It provides comprehensive retrieval capabilities for crypto market trends, on-chain metrics, venture capital flows, prediction markets, AI sector tracking, and BlockBeats’ original in-depth analysis.
 
 ## Installation
 
