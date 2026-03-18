@@ -1,17 +1,26 @@
 # blockbeats-mcp
 
-BlockBeats MCP Server: A dedicated crypto data gateway for AI assistants. It provides comprehensive retrieval capabilities for crypto market trends, on-chain metrics, venture capital flows, prediction markets, AI sector tracking, and BlockBeats’ original in-depth analysis.
+**BlockBeats MCP Server** — A crypto data gateway for AI assistants, powered by the BlockBeats Pro API.
+
+Covers real-time newsflashes, in-depth articles, on-chain metrics, BTC ETF flows, stablecoin data, macro indicators, derivatives market data, and more.
+
+[![npm version](https://img.shields.io/npm/v/blockbeats-mcp)](https://www.npmjs.com/package/blockbeats-mcp)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+---
+
+## Prerequisites
+
+- Node.js 18+
+- BlockBeats API Key ([Apply here](https://www.theblockbeats.info/))
+
+---
 
 ## Installation
 
 ```bash
 npm install -g blockbeats-mcp
 ```
-
-## Prerequisites
-
-- Node.js 18+
-- BlockBeats API Key ([Apply here](https://www.theblockbeats.info/))
 
 ---
 
@@ -41,29 +50,9 @@ Restart Claude Desktop to apply.
 
 ---
 
-### OpenClaw
-
-Add to OpenClaw's MCP config:
-
-```json
-{
-  "mcpServers": {
-    "blockbeats": {
-      "command": "npx",
-      "args": ["-y", "blockbeats-mcp"],
-      "env": {
-        "BLOCKBEATS_API_KEY": "your_api_key"
-      }
-    }
-  }
-}
-```
-
----
-
 ### Cursor
 
-Open Cursor → Settings → MCP, add:
+Open **Cursor → Settings → MCP**, add:
 
 ```json
 {
@@ -101,9 +90,9 @@ Edit `~/.codeium/windsurf/mcp_config.json`:
 
 ---
 
-### Cline (VS Code Extension)
+### Cline (VS Code)
 
-Open VS Code → Cline panel → MCP Servers → Add:
+Open **VS Code → Cline panel → MCP Servers → Add**:
 
 ```json
 {
@@ -119,9 +108,27 @@ Open VS Code → Cline panel → MCP Servers → Add:
 
 ---
 
-### Programmatic Usage (Node.js / TypeScript)
+### OpenClaw
 
-Call directly via the MCP Client SDK:
+Add to OpenClaw's MCP config:
+
+```json
+{
+  "mcpServers": {
+    "blockbeats": {
+      "command": "npx",
+      "args": ["-y", "blockbeats-mcp"],
+      "env": {
+        "BLOCKBEATS_API_KEY": "your_api_key"
+      }
+    }
+  }
+}
+```
+
+---
+
+### Programmatic Usage (Node.js / TypeScript)
 
 ```typescript
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
@@ -149,36 +156,39 @@ console.log(result);
 
 | Tool | Description |
 |------|-------------|
-| `get_newsflash` | News flash list (all / important / original / first-report / on-chain / funding / prediction / AI) |
-| `get_articles` | Article list (all / important / original) |
-| `search_news` | Keyword search |
-| `get_btc_etf_flow` | BTC ETF net inflow |
+| `get_newsflash` | Newsflash list — filter by category: `all` / `important` / `original` / `first-report` / `on-chain` / `funding` / `prediction` / `AI` |
+| `get_articles` | Article list — filter by type: `all` / `important` / `original` |
+| `search_news` | Full-text keyword search across news and articles |
+| `get_btc_etf_flow` | BTC spot ETF daily net inflow data |
+| `get_ibit_fbtc_flow` | IBIT / FBTC individual fund net inflow |
 | `get_daily_onchain_tx` | Daily on-chain transaction volume |
-| `get_ibit_fbtc_flow` | IBIT / FBTC net inflow |
-| `get_stablecoin_marketcap` | Stablecoin market cap |
-| `get_compliant_exchange_total` | Total assets of compliant exchanges |
-| `get_us_treasury_yield` | US Treasury yield |
+| `get_stablecoin_marketcap` | Total stablecoin market cap |
+| `get_compliant_exchange_total` | Aggregated assets across compliant exchanges |
+| `get_us_treasury_yield` | US Treasury yield curve data |
 | `get_dxy_index` | US Dollar Index (DXY) |
 | `get_m2_supply` | Global M2 money supply |
-| `get_bitfinex_long_positions` | Bitfinex long positions |
-| `get_contract_oi_data` | Contract platform open interest data |
-| `get_sentiment_indicator` | Buy/sell sentiment indicator |
+| `get_bitfinex_long_positions` | Bitfinex BTC long position data |
+| `get_contract_oi_data` | Open interest by derivatives platform |
+| `get_sentiment_indicator` | Market buy/sell sentiment indicator |
 | `get_top10_netflow` | Top 10 tokens by on-chain net inflow |
-| `get_exchange_rankings` | Derivatives exchange rankings |
+| `get_exchange_rankings` | Derivatives exchange ranking by volume |
 
 ---
 
-## Usage Examples
+## Example Prompts
 
-Once configured, chat naturally:
+Once connected, ask naturally:
 
 ```
 How much did BTC ETF inflow today?
-What are the latest important news flashes?
-Search for Solana-related news
-Is the current macro environment good for entering the market?
-Where is on-chain capital flowing?
+What are the latest important crypto newsflashes?
+Search for Solana-related news this week.
+Is the current macro environment favorable for entering the market?
+Which tokens are seeing the largest on-chain inflows?
+What is the current market sentiment — bullish or bearish?
 ```
+
+---
 
 ## License
 
