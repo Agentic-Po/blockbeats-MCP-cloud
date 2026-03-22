@@ -157,8 +157,10 @@ console.log(result);
 | Tool | Description |
 |------|-------------|
 | `get_newsflash` | Newsflash list — filter by category: `all` / `important` / `original` / `first-report` / `on-chain` / `funding` / `prediction` / `AI` |
+| `get_newsflash_24h` | All newsflashes from the past 24 hours (no pagination) |
 | `get_articles` | Article list — filter by type: `all` / `important` / `original` |
-| `search_news` | Full-text keyword search across news and articles |
+| `get_articles_24h` | Articles from the past 24 hours (fixed 50 items, no pagination) |
+| `search_news` | Full-text keyword search across news and articles, with pagination |
 | `get_btc_etf_flow` | BTC spot ETF daily net inflow data |
 | `get_ibit_fbtc_flow` | IBIT / FBTC individual fund net inflow |
 | `get_daily_onchain_tx` | Daily on-chain transaction volume |
