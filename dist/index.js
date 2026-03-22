@@ -50,8 +50,18 @@ server.setRequestHandler(types_js_1.ListToolsRequestSchema, async () => ({
                         description: "快讯分类：all全部 | important重要 | original原创 | first首发 | onchain链上 | financing融资 | prediction预测市场 | ai(AI快讯)",
                     },
                     page: { type: "integer", minimum: 1, default: 1, description: "页码" },
-                    size: { type: "integer", minimum: 1, maximum: 100, default: 10, description: "每页数量" },
-                    lang: { type: "string", enum: ["cn", "en"], default: "cn", description: "语言" },
+                    size: { type: "integer", minimum: 1, maximum: 50, default: 10, description: "每页数量（最大50）" },
+                    lang: { type: "string", enum: ["cn", "en", "cht", "vi", "ko", "ja", "th", "tr"], default: "cn", description: "语言：cn简体中文 | en英语 | cht繁体中文 | vi越南语 | ko韩语 | ja日语 | th泰语 | tr土耳其语" },
+                },
+            },
+        },
+        {
+            name: "get_newsflash_24h",
+            description: "获取过去 24 小时内的所有快讯（不支持分页，直接返回全量数据）",
+            inputSchema: {
+                type: "object",
+                properties: {
+                    lang: { type: "string", enum: ["cn", "en", "cht", "vi", "ko", "ja", "th", "tr"], default: "cn", description: "语言：cn简体中文 | en英语 | cht繁体中文 | vi越南语 | ko韩语 | ja日语 | th泰语 | tr土耳其语" },
                 },
             },
         },
@@ -68,20 +78,31 @@ server.setRequestHandler(types_js_1.ListToolsRequestSchema, async () => ({
                         description: "文章分类：all全部 | important重要 | original原创",
                     },
                     page: { type: "integer", minimum: 1, default: 1, description: "页码" },
-                    size: { type: "integer", minimum: 1, maximum: 100, default: 10, description: "每页数量" },
-                    lang: { type: "string", enum: ["cn", "en"], default: "cn", description: "语言" },
+                    size: { type: "integer", minimum: 1, maximum: 50, default: 10, description: "每页数量（最大50）" },
+                    lang: { type: "string", enum: ["cn", "en", "cht", "vi", "ko", "ja", "th", "tr"], default: "cn", description: "语言：cn简体中文 | en英语 | cht繁体中文 | vi越南语 | ko韩语 | ja日语 | th泰语 | tr土耳其语" },
+                },
+            },
+        },
+        {
+            name: "get_articles_24h",
+            description: "获取过去 24 小时内的文章（固定 50 条，不支持分页）",
+            inputSchema: {
+                type: "object",
+                properties: {
+                    lang: { type: "string", enum: ["cn", "en", "cht", "vi", "ko", "ja", "th", "tr"], default: "cn", description: "语言：cn简体中文 | en英语 | cht繁体中文 | vi越南语 | ko韩语 | ja日语 | th泰语 | tr土耳其语" },
                 },
             },
         },
         {
             name: "search_news",
-            description: "按关键词搜索快讯和文章",
+            description: "按关键词搜索快讯和文章，支持分页",
             inputSchema: {
                 type: "object",
                 properties: {
                     keyword: { type: "string", minLength: 1, description: "搜索关键词" },
-                    size: { type: "integer", minimum: 1, maximum: 100, default: 10, description: "返回数量" },
-                    lang: { type: "string", enum: ["cn", "en"], default: "cn", description: "语言" },
+                    page: { type: "integer", minimum: 1, default: 1, description: "页码" },
+                    size: { type: "integer", minimum: 1, maximum: 100, default: 10, description: "每页数量（最大100）" },
+                    lang: { type: "string", enum: ["cn", "en", "cht", "vi", "ko", "ja", "th", "tr"], default: "cn", description: "语言：cn简体中文 | en英语 | cht繁体中文 | vi越南语 | ko韩语 | ja日语 | th泰语 | tr土耳其语" },
                 },
                 required: ["keyword"],
             },
@@ -246,6 +267,16 @@ server.setRequestHandler(types_js_1.CallToolRequestSchema, async (req) => {
                 }
                 break;
             }
+            case "get_newsflash_24h":
+                data = await fetchApi("/v1/newsflash/24h", {
+                    lang: a.lang || "cn",
+                });
+                break;
+            case "get_articles_24h":
+                data = await fetchApi("/v1/article/24h", {
+                    lang: a.lang || "cn",
+                });
+                break;
             case "get_articles": {
                 const category = a.category || "all";
                 const params = {
@@ -264,6 +295,7 @@ server.setRequestHandler(types_js_1.CallToolRequestSchema, async (req) => {
             case "search_news":
                 data = await fetchApi("/v1/search", {
                     name: String(a.keyword),
+                    page: String(a.page ?? 1),
                     size: String(a.size ?? 10),
                     lang: a.lang || "cn",
                 });
