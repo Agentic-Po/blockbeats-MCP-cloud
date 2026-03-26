@@ -5,14 +5,13 @@
 A zero-install, serverless MCP gateway for AI assistants powered by the [BlockBeats Pro API](https://www.theblockbeats.info/).
 Covers real-time newsflashes, in-depth articles, on-chain metrics, BTC ETF flows, stablecoin data, macro indicators, derivatives market data, and more.
 
-[![npm version](https://img.shields.io/npm/v/blockbeats-mcp)](https://www.npmjs.com/package/blockbeats-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ---
 
 ## What's Different from the Original
 
-This is a fork of [blockbeats-mcp](https://www.npmjs.com/package/blockbeats-mcp) with one major addition: **a Cloudflare Worker that runs the MCP server in the cloud**, so no one needs to install Node.js or run anything locally.
+This is a fork of [blockbeats-mcp](https://www.npmjs.com/package/blockbeats-mcp) with one key difference: **a Cloudflare Worker that runs the MCP server in the cloud**, so no one needs to install Node.js or run anything locally.
 
 | Feature | Original (`blockbeats-mcp`) | This Fork (Cloudflare Worker) |
 |---|---|---|
@@ -41,11 +40,7 @@ Just point your MCP client at that URL and pass your BlockBeats API key as a hea
 
 ## Integration
 
-### Claude Desktop
-
-Edit the config file:
-- **Mac**: `~/Library/Application Support/Claude/claude_desktop_config.json`
-- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+Add the following to your MCP client config, replacing `YOUR_API_KEY` with your BlockBeats API key:
 
 ```json
 {
@@ -61,69 +56,11 @@ Edit the config file:
 }
 ```
 
-Restart Claude Desktop to apply.
-
----
-
-### Cursor
-
-Open **Cursor → Settings → MCP**, add:
-
-```json
-{
-  "mcpServers": {
-    "blockbeats": {
-      "type": "http",
-      "url": "https://blockbeats-mcp.pochu1215.workers.dev/mcp",
-      "headers": {
-        "X-BlockBeats-Api-Key": "YOUR_API_KEY"
-      }
-    }
-  }
-}
-```
-
----
-
-### Windsurf
-
-Edit `~/.codeium/windsurf/mcp_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "blockbeats": {
-      "type": "http",
-      "url": "https://blockbeats-mcp.pochu1215.workers.dev/mcp",
-      "headers": {
-        "X-BlockBeats-Api-Key": "YOUR_API_KEY"
-      }
-    }
-  }
-}
-```
-
----
-
-### Test with curl
-
-No client needed — verify it works in seconds:
-
-```bash
-# Health check (no API key required)
-curl https://blockbeats-mcp.pochu1215.workers.dev/
-
-# List all 18 available tools
-curl -X POST https://blockbeats-mcp.pochu1215.workers.dev/mcp \
-  -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
-
-# Call a tool (API key required)
-curl -X POST https://blockbeats-mcp.pochu1215.workers.dev/mcp \
-  -H "Content-Type: application/json" \
-  -H "X-BlockBeats-Api-Key: YOUR_API_KEY" \
-  -d '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"get_newsflash","arguments":{"category":"important","size":5}}}'
-```
+Config file locations by client:
+- **Claude Desktop (Mac):** `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Claude Desktop (Windows):** `%APPDATA%\Claude\claude_desktop_config.json`
+- **Cursor:** Settings → MCP
+- **Windsurf:** `~/.codeium/windsurf/mcp_config.json`
 
 ---
 
@@ -149,29 +86,6 @@ curl -X POST https://blockbeats-mcp.pochu1215.workers.dev/mcp \
 | `get_sentiment_indicator` | Market buy/sell sentiment indicator |
 | `get_top10_netflow` | Top 10 tokens by on-chain net inflow |
 | `get_exchange_rankings` | Derivatives exchange ranking by volume |
-
----
-
-## Self-Hosting (Deploy Your Own)
-
-If you'd prefer to run your own instance on Cloudflare Workers:
-
-**Prerequisites:** Node.js 18+, a [Cloudflare account](https://dash.cloudflare.com/sign-up) (free tier works)
-
-```bash
-git clone https://github.com/Agentic-Po/blockbeats-MCP-cloud.git
-cd blockbeats-MCP-cloud
-npm install
-
-# Login to Cloudflare
-npx wrangler login
-
-# Deploy
-npx wrangler deploy
-```
-
-Your worker will be live at `https://blockbeats-mcp.<your-subdomain>.workers.dev/mcp`.
-No secrets to configure — users supply their own API key via the `X-BlockBeats-Api-Key` header.
 
 ---
 
