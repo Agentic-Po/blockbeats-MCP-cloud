@@ -1,7 +1,7 @@
 {
   "name": "blockbeats-mcp",
-  "version": "1.0.4",
-  "description": "BlockBeats Pro API MCP Server for crypto news, newsflashes, and on-chain market data",
+  "version": "1.0.5",
+  "description": "BlockBeats Pro API MCP Server — Cloudflare Worker (user-supplied API key)",
   "main": "dist/index.js",
   "bin": {
     "blockbeats-mcp": "dist/index.js"
@@ -15,7 +15,9 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "ts-node src/index.ts"
+    "dev": "ts-node src/index.ts",
+    "worker:dev": "wrangler dev",
+    "worker:deploy": "wrangler deploy"
   },
   "keywords": [
     "mcp",
@@ -23,15 +25,18 @@
     "crypto",
     "news",
     "bitcoin",
-    "on-chain"
+    "on-chain",
+    "cloudflare-workers"
   ],
   "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.0.0",
     "@types/node": "^20.0.0",
     "typescript": "^5.0.0",
-    "ts-node": "^10.0.0"
+    "ts-node": "^10.0.0",
+    "wrangler": "^3.0.0"
   }
 }
