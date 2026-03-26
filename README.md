@@ -22,7 +22,6 @@ This is a fork of [blockbeats-mcp](https://www.npmjs.com/package/blockbeats-mcp)
 | **API Key** | Set as `env` in client config | Passed as a request header (`X-BlockBeats-Api-Key`) |
 | **Key storage** | Stored in local config file | Never stored on the server — sent per-request |
 | **Availability** | Only when your machine is on | Always-on, globally distributed |
-| **New tools** | 16 tools | **18 tools** (+`get_newsflash_24h`, `get_articles_24h`) |
 
 ---
 
@@ -133,9 +132,9 @@ curl -X POST https://blockbeats-mcp.pochu1215.workers.dev/mcp \
 | Tool | Description |
 |------|-------------|
 | `get_newsflash` | Newsflash list — filter by category: `all` / `important` / `original` / `first` / `onchain` / `financing` / `prediction` / `ai` |
-| `get_newsflash_24h` | ⭐ **New** — All newsflashes from the past 24 hours (no pagination) |
+| `get_newsflash_24h` | All newsflashes from the past 24 hours (no pagination) |
 | `get_articles` | Article list — filter by type: `all` / `important` / `original` |
-| `get_articles_24h` | ⭐ **New** — Articles from the past 24 hours (fixed 50 items, no pagination) |
+| `get_articles_24h` | Articles from the past 24 hours (fixed 50 items, no pagination) |
 | `search_news` | Full-text keyword search across news and articles, with pagination |
 | `get_btc_etf_flow` | BTC spot ETF daily net inflow data |
 | `get_ibit_fbtc_flow` | IBIT / FBTC individual fund net inflow |
